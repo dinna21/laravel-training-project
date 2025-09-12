@@ -147,7 +147,7 @@ export default function Landing({ projects, blogs }: LandingProps) {
         </div>
 
         <div className="mt-8 flex gap-4">
-          <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
+          <Button size="lg" className="bg-cyan-500 hover:bg-cyan-400">
             <Rocket className="w-5 h-5 mr-2" /> Get Started
           </Button>
           <Button
