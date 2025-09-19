@@ -5,7 +5,6 @@ import WorkSection from "@/components/sections/WorkSection";
 import DescriptionSection from "@/components/sections/DescriptionSection";
 import InformationSection from "@/components/sections/InformationSection";
 import BlogSection from "@/components/sections/BlogSection";
-
 import Footer from "@/components/sections/Footer";
 
 interface Project {
@@ -54,7 +53,7 @@ export default function Landing({ projects, blogs }: LandingProps) {
     },
     {
       id: 2,
-      number: "25", 
+      number: "25",
       title: "Lorem ipsum dolor sit amet consectetur.",
       buttonText: "Press release",
       onClick: () => console.log("Information item 2 clicked")
@@ -71,10 +70,10 @@ export default function Landing({ projects, blogs }: LandingProps) {
   return (
     <div className="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
       <Head title="Agency Inc. - Creative Digital Solutions" />
-      
+
       <Header />
-      
-      <Hero 
+
+      <Hero
         title="Lorem ipsum dolor sit amet consectetur."
         badges={["UX/UI Design", "Web Design"]}
         showCards={true}
@@ -84,7 +83,7 @@ export default function Landing({ projects, blogs }: LandingProps) {
         }}
       />
 
-      <DescriptionSection 
+      <DescriptionSection
         items={descriptionItems}
         backgroundColor="bg-white dark:bg-gray-900"
         columns={2}
@@ -93,8 +92,8 @@ export default function Landing({ projects, blogs }: LandingProps) {
 
       <WorkSection projects={projects} />
       <BlogSection blogs={blogs} />
-      
-      <InformationSection 
+
+      <InformationSection
         title="Information"
         items={informationItems}
         backgroundColor="bg-white dark:bg-gray-900"
