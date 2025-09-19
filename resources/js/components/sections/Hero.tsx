@@ -57,7 +57,7 @@ export default function Hero({
         {showCards && (
           <div className="grid md:grid-cols-2 gap-8 mb-16 max-w-4xl w-full mx-auto">
             {/* Left Card */}
-            <Card className="bg-gradient-to-br from-gray-800 to-gray-900 text-white border-0">
+            <Card className="bg-gradient-to-r from-gray-800 via-gray-300 to-amber-100 text-white border-0">
               <CardContent className="p-8">
                 <h3 className="text-2xl font-semibold mb-4">
                   Lorem ipsum dolor sit amet consectetur.
