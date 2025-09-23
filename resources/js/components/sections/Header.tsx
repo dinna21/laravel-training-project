@@ -10,10 +10,12 @@ export default function Header({ brandName = "Agency Inc.", transparent = false 
   return (
     <header className={`border-b border-gray-200 dark:border-gray-800 ${transparent ? 'bg-transparent' : 'bg-white dark:bg-gray-900'} sticky top-0 z-50 backdrop-blur-sm`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
-          <Link href="/" className="text-xl font-semibold text-gray-900 dark:text-gray-100">
-            {brandName}
-          </Link>
+        <div className="flex justify-between items-center py-4 ">
+      <div className="flex-shrink-0">
+        <Link href="/" className="text-xl font-semibold text-gray-900 dark:text-gray-100 ml-0">
+          {brandName}
+        </Link>
+      </div>
 
           <nav className="flex items-center gap-12">
             <ul className="hidden md:flex gap-6 text-md">
