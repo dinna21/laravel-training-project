@@ -20,21 +20,21 @@ export default function DescriptionSection({
   showBackground = true
 }: DescriptionSectionProps) {
   return (
-    <section className={`py-16 px-6 ${backgroundColor}`}>
+ <section className={`py-16 px-6 ${backgroundColor}`}>
       <div className="container mx-auto">
         {title && (
-          <div className="text-center mb-12">
+          <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
               {title}
             </h2>
           </div>
         )}
 
-        <div className="space-y-16">
+        <div className="space-y-8">
           {items.map((item, index) => (
             <div 
               key={item.id || index} 
-              className={`grid ${columns === 2 ? 'md:grid-cols-2' : 'grid-cols-1'} gap-8 max-w-4xl mx-auto text-left ${
+              className={`grid ${columns === 2 ? 'md:grid-cols-2' : 'grid-cols-1'} gap-8 w-full text-left ${
                 showBackground ? 'bg-stone-200 dark:bg-stone-700 p-8 rounded-lg' : ''
               }`}
             >
