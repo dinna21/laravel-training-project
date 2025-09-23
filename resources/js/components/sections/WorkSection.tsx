@@ -26,7 +26,7 @@ export default function WorkSection({
   title = "Work", 
   showAll = false,
   limit = 3,
-  backgroundColor = "bg-gray-100 dark:bg-gray-800"
+  backgroundColor = "bg-white dark:bg-gray-900"
 }: WorkSectionProps) {
   const displayProjects = showAll ? projects : projects.slice(0, limit);
 
@@ -102,7 +102,7 @@ export default function WorkSection({
         </div>
 
         {/* Additional gradient cards section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
+        <div className="grid grid-rows-1 md:grid-rows-2 gap-6 mt-12">
           {/* First gradient card */}
           <div className="bg-gradient-to-br from-slate-800 via-slate-600 to-slate-400 text-white p-8 rounded-lg min-h-[300px] flex flex-col justify-between">
             <div>
@@ -135,7 +135,7 @@ export default function WorkSection({
           </div>
 
           {/* Second gradient card */}
-          <div className="bg-gradient-to-r from-gray-900 via-gray-800 to-neutral-700 text-white p-8 rounded-lg min-h-[300px] flex flex-col justify-between">
+          <div className="bg-gradient-to-r from-neutral-700 via-neutral-500 to-neutral-300 text-white p-8 rounded-lg min-h-[300px] flex flex-col justify-between">
             <div>
               <h3 className="text-2xl font-bold mb-6 leading-tight">
                 Praesent in orcas nam quis ultrices. Faucibus sed amet a egestas mauris
