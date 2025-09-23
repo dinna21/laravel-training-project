@@ -24,15 +24,17 @@ export default function Hero({
   ctaButtons 
 }: HeroProps) {
   return (
-    <section className="flex flex-col items-center justify-center text-center py-20 px-6 relative overflow-hidden">
+    
+    <section className="py-1 px-6 text-center relative overflow-hidden mt-8">
       {backgroundImage && (
         <div className="absolute inset-0 z-0">
           <img src={backgroundImage} alt="" className="w-full h-full object-cover opacity-20" />
         </div>
       )}
       
-      <div className="relative z-10 max-w-6xl mx-auto">
-        <h1 className="text-5xl font-extrabold leading-tight max-w-3xl mb-8">
+      {/* Change from mx-auto to container mx-auto to match WorkSection */}
+      <div className="relative z-10 container mx-auto">
+        <h1 className="text-5xl font-extrabold leading-tight max-w-3xl mb-8 text-left">
           {title}
         </h1>
 
@@ -44,7 +46,7 @@ export default function Hero({
 
         {/* Badges */}
         {badges.length > 0 && (
-          <div className="flex flex-wrap gap-2 mt-8 mb-12 justify-center">
+          <div className="flex flex-wrap gap-2 mt-8 mb-12 justify-left">
             {badges.map((badge, index) => (
               <Badge key={index} variant="secondary" className="bg-gray-200 dark:bg-gray-700 dark:text-gray-200">
                 {badge}
@@ -53,16 +55,16 @@ export default function Hero({
           </div>
         )}
 
-        {/* Two-card layout */}
+        {/* Remove max-w-4xl to use full container width */}
         {showCards && (
-          <div className="grid md:grid-cols-2 gap-8 mb-16 max-w-4xl w-full mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 mb-0 w-full">
             {/* Left Card */}
             <Card className="bg-gradient-to-r from-gray-800 via-gray-300 to-amber-100 text-white border-0">
-              <CardContent className="p-8">
+              <CardContent className="p-8 text-left">
                 <h3 className="text-2xl font-semibold mb-4">
                   Lorem ipsum dolor sit amet consectetur.
                 </h3>
-                <Button variant="secondary" className="mt-6 bg-cyan-400 text-gray-900 hover:bg-cyan-300">
+                <Button variant="secondary" className="mt-19 bg-cyan-400 text-gray-900 hover:bg-cyan-300">
                   Contact <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </CardContent>
@@ -86,23 +88,6 @@ export default function Hero({
                 />
               </CardContent>
             </Card>
-          </div>
-        )}
-
-        {/* CTA Buttons */}
-        {ctaButtons && (
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            {ctaButtons.primary && (
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
-                <Rocket className="w-5 h-5 mr-2" />
-                {ctaButtons.primary.text}
-              </Button>
-            )}
-            {ctaButtons.secondary && (
-              <Button size="lg" variant="outline" className="border-gray-400 text-gray-900 dark:border-gray-500 dark:text-gray-100">
-                {ctaButtons.secondary.text}
-              </Button>
-            )}
           </div>
         )}
       </div>
