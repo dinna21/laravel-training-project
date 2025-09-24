@@ -1,5 +1,6 @@
 import { Link } from '@inertiajs/react';
 import AppearanceToggleDropdown from '@/components/appearance-dropdown';
+import { useState } from 'react';
 
 interface HeaderProps {
   brandName?: string;
@@ -7,6 +8,17 @@ interface HeaderProps {
 }
 
 export default function Header({ brandName = "Agency Inc.", transparent = false }: HeaderProps) {
+
+    const [isOpen,setIsOpen] = useState(false)
+
+    const navigationLinks = [
+    { href: "/services", label: "Services" },
+    { href: "/work", label: "Work" },
+    { href: "/blog", label: "Blog" },
+    { href: "/about", label: "About Us" },
+    { href: "/company", label: "Company" },
+    { href: "#contact", label: "Contact" }
+  ];
   return (
     <header className={`border-b border-gray-200 dark:border-gray-800 ${transparent ? 'bg-transparent' : 'bg-white dark:bg-gray-900'} sticky top-0 z-50 backdrop-blur-sm`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
