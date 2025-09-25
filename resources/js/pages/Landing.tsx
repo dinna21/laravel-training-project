@@ -7,9 +7,6 @@ import InformationSection from "@/components/sections/InformationSection";
 import BlogSection from "@/components/sections/BlogSection";
 import Footer from "@/components/sections/Footer";
 
-//  Import data form the constants folder
-import { descriptionItems, informationItems } from "@/constants/landing-data";
-
 interface Project {
   id: number;
   name: string;
@@ -26,12 +23,33 @@ interface Blog {
   image: string;
 }
 
+interface DescriptionItem {
+  id: number;
+  title: string;
+  content: string[];
+}
+
+interface InformationItem {
+  id: number;
+  number: string;
+  title: string;
+  buttonText: string;
+  buttonLink: string;
+}
+
 interface LandingProps {
   projects: Project[];
   blogs: Blog[];
+  descriptionItems: DescriptionItem[];
+  informationItems: InformationItem[];
 }
 
-export default function Landing({ projects, blogs }: LandingProps) {
+export default function Landing({ 
+  projects, 
+  blogs, 
+  descriptionItems, 
+  informationItems 
+}: LandingProps) {
   return (
     <div className="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
       <Head title="Agency Inc. - Creative Digital Solutions" />
