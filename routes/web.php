@@ -17,7 +17,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('dashboard');
 });
 
-
+Route::get('/services', [App\Http\Controllers\LandinController::class, 'services'])->name('services');
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
