@@ -21,13 +21,4 @@ class LandinController extends Controller
             'informationItems' => $landingData['informationItems'],
         ]);
     }
-        public function services(): Response
-    {
-        // Load services data from the data folder
-        $servicesData = include base_path('data/services.php');
-        
-        return Inertia::render('Services', [
-            'services' => $servicesData['services'],
-        ]);
-    }
 }
