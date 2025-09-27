@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LandinController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -16,6 +17,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 });
+
+// company page route 
+Route::get('/company', [CompanyController::class, 'index'])->name('company'); // Add this
+
 
 Route::get('/services', [App\Http\Controllers\ServicesController::class, 'index'])->name('services');
 
