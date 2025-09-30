@@ -16,7 +16,6 @@ export default function Header({ brandName = "Agency Inc.", transparent = false 
 
     const navigationLinks = [
     { href: "/services", label: "Services" },
-    { href: "/work", label: "Work" },
     { href: "/blog", label: "Blog" },
     { href: "/about", label: "About Us" },
     { href: "/company", label: "Company" },
