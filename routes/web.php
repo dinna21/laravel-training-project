@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LandinController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,5 +25,5 @@ Route::get('/company', [CompanyController::class, 'index'])->name('company'); //
 
 Route::get('/services', [App\Http\Controllers\ServicesController::class, 'index'])->name('services');
 
-require __DIR__.'/settings.php';
+Route::get('/about', [AboutController::class, 'index'])->name('about');require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
