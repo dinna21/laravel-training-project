@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\LandinController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\AboutController;
@@ -22,8 +23,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 // company page route 
 Route::get('/company', [CompanyController::class, 'index'])->name('company'); // Add this
 
-
+// services page route
 Route::get('/services', [App\Http\Controllers\ServicesController::class, 'index'])->name('services');
+
+//Blog page route 
+Route::get('/blog', [BlogController::class,'index'])->name('blog');
+// About page route
 
 Route::get('/about', [AboutController::class, 'index'])->name('about');require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
