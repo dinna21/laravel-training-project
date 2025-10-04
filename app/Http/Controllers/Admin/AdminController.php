@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -28,15 +30,23 @@ class AdminController extends Controller
             'password' => 'required',
         ]);
 
-        // Check admin credentials
-        if ($request->email === 'admin@gmail.com' && $request->password === '1234') {
+        // Find user by email
+        $user = User::where('email', $request->email)->first();
+
+        // Check if user exists, password matches, and user is admin
+        if ($user && 
+            Hash::check($request->password, $user->password) && 
+            $user->is_admin) {
+            
             $request->session()->put('admin_authenticated', true);
             $request->session()->put('admin_email', $request->email);
+            $request->session()->put('admin_user_id', $user->id);
+            
             return redirect()->route('admin.dashboard');
         }
 
         return back()->withErrors([
-            'email' => 'Invalid admin credentials.',
+            'email' => 'Invalid admin credentials or insufficient permissions.',
         ]);
     }
 
@@ -45,10 +55,12 @@ class AdminController extends Controller
      */
     public function dashboard(): Response
     {
-        // Sample data for dashboard
+        // Enhanced stats for blog management
         $stats = [
-            'users' => 1234,
-            'posts' => 89,
+            'users' => User::count(),
+            'totalBlogs' => 89, // Replace with actual blog count
+            'publishedBlogs' => 77, // Replace with actual count
+            'draftBlogs' => 12, // Replace with actual count
             'views' => 45678,
             'revenue' => '$12,345'
         ];
@@ -63,7 +75,7 @@ class AdminController extends Controller
      */
     public function logout(Request $request): RedirectResponse
     {
-        $request->session()->forget(['admin_authenticated', 'admin_email']);
+        $request->session()->forget(['admin_authenticated', 'admin_email', 'admin_user_id']);
         return redirect()->route('admin.login');
     }
 }
