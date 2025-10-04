@@ -32,3 +32,18 @@ Route::get('/blog', [BlogController::class,'index'])->name('blog');
 
 Route::get('/about', [AboutController::class, 'index'])->name('about');require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
+
+// Admin Routes
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/login', [App\Http\Controllers\Admin\AdminController::class, 'showLogin'])->name('login');
+    Route::post('/login', [App\Http\Controllers\Admin\AdminController::class, 'login'])->name('login.store');
+    
+    Route::middleware(['admin'])->group(function () {
+        Route::get('/dashboard', [App\Http\Controllers\Admin\AdminController::class, 'dashboard'])->name('dashboard');
+        Route::post('/logout', [App\Http\Controllers\Admin\AdminController::class, 'logout'])->name('logout');
+    });
+});
+
+
+require __DIR__.'/settings.php';
+require __DIR__.'/auth.php';
