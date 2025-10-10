@@ -59,24 +59,24 @@ export default function Hero({
         {showCards && (
           <div className="grid md:grid-cols-2 gap-8 mb-0 w-full">
             {/* Left Card */}
-            <Card className="bg-gradient-to-r from-gray-800 via-gray-300 to-amber-100 text-white border-0">
-              <CardContent className="p-8 text-left">
-                <h3 className="text-2xl font-semibold mb-4">
-                  Lorem ipsum dolor sit amet consectetur.
-                </h3>
-                <Button variant="secondary" className="mt-19 bg-cyan-400 text-gray-900 hover:bg-cyan-300">
-                  Contact <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </CardContent>
-            </Card>
+        <Card className="border-0 bg-gradient-to-r from-[#95ECFD] to-[#E5FFFB] dark:from-[#3E3C41] dark:to-[#FEF6D9] text-gray-900 dark:text-white">
+          <CardContent className="p-8 text-left">
+            <h3 className="text-2xl font-semibold mb-4">
+              Lorem ipsum dolor sit amet consectetur.
+            </h3>
+            <Button variant="secondary" className="mt-19 bg-cyan-400 text-gray-900 hover:bg-cyan-300">
+              Contact <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </CardContent>
+        </Card>
 
             {/* Right Card - Image */}
-            <Card className="border-0 overflow-hidden">
+            <Card className="border-0">
               <CardContent className="p-0">
                 <img
                   src="/images/office--img.jpg"
                   alt="Modern office space"
-                  className="w-full h-64 object-cover"
+                  className="w-full h-64"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.style.display = "none";
