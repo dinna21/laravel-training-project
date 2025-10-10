@@ -32,12 +32,12 @@ export default function DescriptionSection({
 
         <div className="space-y-8">
           {items.map((item, index) => (
-            <div 
-              key={item.id || index} 
-              className={`grid ${columns === 2 ? 'md:grid-cols-2' : 'grid-cols-1'} gap-8 w-full text-left ${
-                showBackground ? 'bg-stone-200 dark:bg-stone-700 p-8 rounded-lg' : ''
-              }`}
-            >
+        <div 
+          key={item.id || index} 
+          className={`grid ${columns === 2 ? 'md:grid-cols-2' : 'grid-cols-1'} gap-8 w-full text-left ${
+            showBackground ? 'bg-[#F9F7F5] dark:bg-[#312F33] p-8 rounded-lg' : ''
+          }`}
+        >
               {/* Title Column */}
               <div>
                 <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">
