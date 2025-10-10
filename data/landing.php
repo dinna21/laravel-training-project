@@ -5,7 +5,8 @@ return [
             'id' => 1,
             'name' => 'E-Commerce Platform',
             'description' => 'Modern online shopping platform with advanced features.',
-            'image' => '/images/office--img.jpg',
+            'image' => '/images/image (2).png',
+            'imageDark' => '/images/image (3).png',
             'category' => 'Web Development',
             'technologies' => ['React', 'Laravel', 'MySQL']
         ],
@@ -13,7 +14,8 @@ return [
             'id' => 2,
             'name' => 'Mobile Banking App',
             'description' => 'Secure and user-friendly banking application.',
-            'image' => '/images/office--img.jpg',
+            'image' => '/images/image (2).png',
+            'imageDark' => '/images/image (3).png',
             'category' => 'Mobile App',
             'technologies' => ['React Native', 'Node.js', 'MongoDB']
         ],
@@ -21,7 +23,8 @@ return [
             'id' => 3,
             'name' => 'Corporate Website',
             'description' => 'Professional corporate website with CMS integration.',
-            'image' => '/images/office--img.jpg',
+            'image' => '/images/image (2).png',
+            'imageDark' => '/images/image (3).png',
             'category' => 'Web Design',
             'technologies' => ['Next.js', 'Tailwind CSS', 'Strapi']
         ],
