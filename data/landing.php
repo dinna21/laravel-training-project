@@ -30,26 +30,29 @@ return [
         ],
     ],
 
-    'blogs' => [
-        [
-            'id' => 1,
-            'title' => 'Understanding Inertia.js',
-            'description' => 'A deep dive into building modern web applications with Inertia.js and Laravel.',
-            'image' => '/images/office--img.jpg',
-        ],
-        [
-            'id' => 2,
-            'title' => 'Getting Started with React',
-            'description' => 'An introductory guide to building applications with React.',
-            'image' => '/images/office--img.jpg',
-        ],
-        [
-            'id' => 3,
-            'title' => 'Laravel Best Practices',
-            'description' => 'Tips and tricks for writing clean and efficient Laravel code.',
-            'image' => '/images/office--img.jpg',
-        ],
+'blogs' => [
+    [
+        'id' => 1,
+        'title' => 'Understanding Inertia.js',
+        'description' => 'A deep dive into building modern web applications with Inertia.js and Laravel.',
+        'image' => '/images/office--img.jpg',
+        'date' => '2023-11-25', // Add this
     ],
+    [
+        'id' => 2,
+        'title' => 'Getting Started with React',
+        'description' => 'An introductory guide to building applications with React.',
+        'image' => '/images/office--img.jpg',
+        'date' => '2023-10-15', // Add this
+    ],
+    [
+        'id' => 3,
+        'title' => 'Laravel Best Practices',
+        'description' => 'Tips and tricks for writing clean and efficient Laravel code.',
+        'image' => '/images/office--img.jpg',
+        'date' => '2023-09-08', // Add this
+    ],
+],
 
     'descriptionItems' => [
         [
