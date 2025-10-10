@@ -70,31 +70,9 @@ export default function WorkSection({
                 </div>
 
                 <div className="p-6">
-                  <div className="mb-3">
-                    <Badge variant="secondary" className="bg-cyan-400 text-gray-900 text-xs">
-                      {project.category}
-                    </Badge>
-                  </div>
-
-                  <h4 className="text-xl font-semibold mb-2 group-hover:text-cyan-400 transition-colors">
+                  <p className="font-semibold mb-2">
                     {project.name}
-                  </h4>
-
-                  <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2">
-                    {project.description}
                   </p>
-
-                  <div className="flex flex-wrap gap-1 mb-4">
-                    {project.technologies.map((tech, index) => (
-                      <span key={index} className="bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-300 px-2 py-1 rounded text-xs">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  <Button variant="outline" size="sm" className="w-full border-gray-400 dark:border-gray-500 text-gray-800 dark:text-gray-200 hover:bg-cyan-400 hover:text-gray-900">
-                    View Project <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
                 </div>
               </CardContent>
             </Card>
