@@ -64,7 +64,8 @@ export default function Hero({
             <h3 className="text-2xl font-semibold mb-4">
               Lorem ipsum dolor sit amet consectetur.
             </h3>
-            <Button variant="secondary" className="mt-19 bg-cyan-400 text-gray-900 hover:bg-cyan-300">
+            <Button className="bg-white/20 hover:bg-white/30 text-gray-900 dark:text-white border border-white/30 backdrop-blur-sm text-base">
+            {/* <Button variant="secondary" className="mt-19 bg-cyan-400 text-gray-900 hover:bg-cyan-300"> */}
               Contact <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </CardContent>
