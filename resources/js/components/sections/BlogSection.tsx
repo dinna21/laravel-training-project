@@ -8,6 +8,7 @@ interface Blog {
   title: string;
   description: string;
   image: string;
+  date: string;
 }
 
 interface BlogSectionProps {
@@ -18,9 +19,9 @@ interface BlogSectionProps {
   backgroundColor?: string;
 }
 
-export default function BlogSection({ 
-  blogs, 
-  title = "Blog", 
+export default function BlogSection({
+  blogs,
+  title = "Blog",
   showAll = false,
   limit = 3,
   backgroundColor = "bg-white dark:bg-gray-900"
@@ -40,38 +41,39 @@ export default function BlogSection({
             </Link>
           )}
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {displayBlogs.map((blog) => (
-            <Card key={blog.id} className="bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-600 group cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105">
+            <Card key={blog.id} className="bg-transparent border-gray-200 dark:border-gray-600 group cursor-pointer hover:shadow-lg transition-all duration-300 hover:scale-105">
               <CardContent className="p-0">
                 <div className="aspect-[4/3] bg-gray-200 dark:bg-gray-600 overflow-hidden">
                   <img
                     src={blog.image}
                     alt={blog.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.style.display = "none";
-                      const parent = target.parentElement;
-                      if (parent) {
-                        parent.innerHTML = `<div class="w-full h-full flex items-center justify-center text-gray-500 dark:text-gray-300 bg-gray-200 dark:bg-gray-600">
-                          <div class="text-center">
-                            <div class="text-4xl mb-2">📁</div>
-                            <div class="text-sm">${blog.title}</div>
-                          </div>
-                        </div>`;
-                      }
-                    }}
                   />
                 </div>
-                <div className="p-4">
-                  <h4 className="text-xl font-semibold group-hover:text-cyan-400 mb-2 transition-colors">
+
+                <div className="p-4 ">
+                  {blog.date && (() => {
+                    const date = new Date(blog.date);
+                    const year = date.getFullYear();
+                    const day = date.getDate();
+                    const month = date.toLocaleDateString('en-US', { month: 'short' });
+
+                    return (
+                      <>
+                        <div className="flex items-baseline gap-4 mb-2">
+                          <span className="text-sm text-muted-foreground">{year}</span>
+                          <span className="text-4xl font-bold text-foreground">{day}</span>
+                        </div>
+                        <div className="text-sm text-muted-foreground mb-2">{month}</div>
+                      </>
+                    );
+                  })()}
+                  <h4 className="text-base font-normal text-foreground">
                     {blog.title}
                   </h4>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm">
-                    {blog.description}
-                  </p>
                 </div>
               </CardContent>
             </Card>
