@@ -7,6 +7,16 @@ import InformationSection from "@/components/sections/InformationSection";
 import BlogSection from "@/components/sections/BlogSection";
 import Footer from "@/components/sections/Footer";
 
+interface HeroData {
+  title: string;
+  badges: string[];
+  showCards: boolean;
+  ctaButtons: {
+    primary: { text: string };
+    secondary: { text: string };
+  };
+}
+
 interface Project {
   id: number;
   name: string;
@@ -39,17 +49,19 @@ interface InformationItem {
 }
 
 interface LandingProps {
+  hero: HeroData;
   projects: Project[];
   blogs: Blog[];
   descriptionItems: DescriptionItem[];
   informationItems: InformationItem[];
 }
 
-export default function Landing({ 
-  projects, 
-  blogs, 
-  descriptionItems, 
-  informationItems 
+export default function Landing({
+  hero,
+  projects,
+  blogs,
+  descriptionItems,
+  informationItems,
 }: LandingProps) {
   return (
     <div className="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
@@ -58,13 +70,10 @@ export default function Landing({
       <Header />
 
       <Hero
-        title="Lorem ipsum dolor sit amet consectetur."
-        badges={["UX/UI Design", "Web Design"]}
-        showCards={true}
-        ctaButtons={{
-          primary: { text: "Get Started" },
-          secondary: { text: "Learn More" },
-        }}
+        title={hero.title}
+        badges={hero.badges}
+        showCards={hero.showCards}
+        ctaButtons={hero.ctaButtons}
       />
 
       <DescriptionSection
