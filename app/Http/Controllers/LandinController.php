@@ -15,6 +15,7 @@ class LandinController extends Controller
         $landingData = include base_path('data/landing.php');
         
         return Inertia::render('Landing', [
+            'hero' => $landingData['hero'],
             'projects' => $landingData['projects'],
             'blogs' => $landingData['blogs'],
             'descriptionItems' => $landingData['descriptionItems'],
