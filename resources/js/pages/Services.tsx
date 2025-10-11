@@ -2,11 +2,14 @@ import { Head } from "@inertiajs/react";
 import Header from "@/components/sections/Header";
 import Footer from "@/components/sections/Footer";
 import ServiceSection from "@/components/sections/ServiceSection";
+import { useAppearance } from "@/hooks/use-appearance";
+
 
 interface ServiceProject {
   id: number;
   name: string;
   image: string;
+  imageDark?: string;
 }
 
 interface ServiceItem {
@@ -22,6 +25,7 @@ interface ServicesProps {
 }
 
 export default function Services({ services }: ServicesProps) {
+  const { appearance } = useAppearance();
   return (
     <div className="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
       <Head title="Services - Agency Inc." />

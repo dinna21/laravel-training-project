@@ -1,12 +1,21 @@
 <?php
 return [
+    'hero' => [
+        'title' => 'Lorem ipsum dolor sit amet consectetur.',
+        'badges' => ['UX/UI Design', 'Web Design'],
+        'showCards' => true,
+        'ctaButtons' => [
+            'primary' => ['text' => 'Get Started'],
+            'secondary' => ['text' => 'Learn More'],
+        ],
+    ],
     'projects' => [
         [
             'id' => 1,
             'name' => 'E-Commerce Platform',
             'description' => 'Modern online shopping platform with advanced features.',
-            'image' => '/images/image (2).png',
-            'imageDark' => '/images/image (3).png',
+            'image' => '/images/image (3).png',
+            'imageDark' => '/images/image (2).png',
             'category' => 'Web Development',
             'technologies' => ['React', 'Laravel', 'MySQL']
         ],
@@ -14,8 +23,8 @@ return [
             'id' => 2,
             'name' => 'Mobile Banking App',
             'description' => 'Secure and user-friendly banking application.',
-            'image' => '/images/image (2).png',
-            'imageDark' => '/images/image (3).png',
+            'image' => '/images/image (3).png',
+            'imageDark' => '/images/image (2).png',
             'category' => 'Mobile App',
             'technologies' => ['React Native', 'Node.js', 'MongoDB']
         ],
@@ -23,8 +32,8 @@ return [
             'id' => 3,
             'name' => 'Corporate Website',
             'description' => 'Professional corporate website with CMS integration.',
-            'image' => '/images/image (2).png',
-            'imageDark' => '/images/image (3).png',
+            'image' => '/images/image (3).png',
+            'imageDark' => '/images/image (2).png',
             'category' => 'Web Design',
             'technologies' => ['Next.js', 'Tailwind CSS', 'Strapi']
         ],
@@ -35,21 +44,24 @@ return [
         'id' => 1,
         'title' => 'Understanding Inertia.js',
         'description' => 'A deep dive into building modern web applications with Inertia.js and Laravel.',
-        'image' => '/images/office--img.jpg',
+        'image' => '/images/image (6).png',
+        'imageDark' => '/images/image (9).png',
         'date' => '2023-11-25', // Add this
     ],
     [
         'id' => 2,
         'title' => 'Getting Started with React',
         'description' => 'An introductory guide to building applications with React.',
-        'image' => '/images/office--img.jpg',
+        'image' => '/images/image (7).png',
+        'imageDark' => '/images/image (10).png',
         'date' => '2023-10-15', // Add this
     ],
     [
         'id' => 3,
         'title' => 'Laravel Best Practices',
         'description' => 'Tips and tricks for writing clean and efficient Laravel code.',
-        'image' => '/images/office--img.jpg',
+        'image' => '/images/image (8).png',
+        'imageDark' => '/images/image (11).png',
         'date' => '2023-09-08', // Add this
     ],
 ],

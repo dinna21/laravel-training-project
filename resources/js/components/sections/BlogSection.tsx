@@ -2,12 +2,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "@inertiajs/react";
+import { useAppearance } from '@/hooks/use-appearance';
 
 interface Blog {
   id: number;
   title: string;
   description: string;
   image: string;
+  imageDark?: string;
   date: string;
 }
 
@@ -27,7 +29,7 @@ export default function BlogSection({
   backgroundColor = "bg-white dark:bg-gray-900"
 }: BlogSectionProps) {
   const displayBlogs = showAll ? blogs : blogs.slice(0, limit);
-
+  const { appearance } = useAppearance();
   return (
     <section className={`py-16 px-6 ${backgroundColor}`}>
       <div className="container mx-auto">
@@ -48,7 +50,7 @@ export default function BlogSection({
               <CardContent className="p-0">
                 <div className="aspect-[4/3] bg-gray-200 dark:bg-gray-600 overflow-hidden">
                   <img
-                    src={blog.image}
+                    src={appearance === 'dark' && blog.imageDark ? blog.imageDark : blog.image}
                     alt={blog.title}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   />

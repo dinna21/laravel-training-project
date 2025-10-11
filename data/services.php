@@ -11,17 +11,19 @@ return [
                 [
                     'id' => 1,
                     'name' => 'Project Name',
-                    'image' => '/images/project-1.jpg'
+                    'image' => '/images/image (3).png',
+                    'imageDark' => '/images/image (2).png',
                 ],
                 [
                     'id' => 2,
                     'name' => 'Project Name',
-                    'image' => '/images/project-1.jpg'
+                    'image' => '/images/image (3).png',
+                    'imageDark' => '/images/image (2).png',
                 ],
                 [
                     'id' => 3,
-                    'name' => 'Project Name',
-                    'image' => '/images/project-1.jpg'
+                    'image' => '/images/image (3).png',
+                    'imageDark' => '/images/image (2).png',
                 ]
             ]
         ],
@@ -34,17 +36,20 @@ return [
                 [
                     'id' => 4,
                     'name' => 'Project Name',
-                    'image' => '/images/project-2.png'
+                    'image' => '/images/image (3).png',
+                    'imageDark' => '/images/image (2).png',
                 ],
                 [
                     'id' => 5,
                     'name' => 'Project Name',
-                    'image' => '/images/project-1.jpg'
+                    'image' => '/images/image (3).png',
+                    'imageDark' => '/images/image (2).png',
                 ],
                 [
                     'id' => 6,
                     'name' => 'Project Name',
-                    'image' => '/images/project-2.png'
+                    'image' => '/images/image (3).png',
+                    'imageDark' => '/images/image (2).png',
                 ]
             ]
         ],
@@ -57,17 +62,20 @@ return [
                 [
                     'id' => 1,
                     'name' => 'Project Name',
-                    'image' => '/images/project-2.png'
+                    'image' => '/images/image (3).png',
+                    'imageDark' => '/images/image (2).png',
                 ],
                 [
                     'id' => 2,
                     'name' => 'Project Name',
-                    'image' => '/images/project-1.jpg'
+                    'image' => '/images/image (3).png',
+                    'imageDark' => '/images/image (2).png',
                 ],
                 [
                     'id' => 3,
                     'name' => 'Project Name',
-                    'image' => '/images/project-2.png'
+                    'image' => '/images/image (3).png',
+                    'imageDark' => '/images/image (2).png',
                 ]
             ]
         ]

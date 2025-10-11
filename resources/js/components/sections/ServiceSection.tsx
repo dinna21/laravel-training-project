@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { useAppearance } from '@/hooks/use-appearance';
 
 interface ServiceProject {
   id: number;
   name: string;
   image: string;
+  imageDark?: string;
 }
 
 interface ServiceItem {
@@ -26,7 +28,7 @@ export default function ServiceSection({
   backgroundColor = "bg-white dark:bg-gray-900" 
 }: ServiceSectionProps) {
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
-
+  const { appearance } = useAppearance();
   const handleProjectClick = (projectId: number) => {
     setSelectedProject(selectedProject === projectId ? null : projectId);
   };
@@ -88,7 +90,7 @@ export default function ServiceSection({
                     {/* Project Image - Responsive aspect ratio */}
                     <div className="aspect-[4/3] sm:aspect-[4/3] relative">
                       <img
-                        src={project.image}
+                        src={appearance === 'dark' && project.imageDark ? project.imageDark : project.image}
                         alt={project.name}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 rounded-t-lg"
                         onError={(e) => {
