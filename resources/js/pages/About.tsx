@@ -1,6 +1,7 @@
 import { Head } from "@inertiajs/react";
 import Header from "@/components/sections/Header";
 import Footer from "@/components/sections/Footer";
+import DescriptionSection from "@/components/sections/DescriptionSection";
 
 interface ProjectInfo {
   name: string;
@@ -27,22 +28,42 @@ interface AboutProps {
 }
 
 export default function About({ project, about, solutions }: AboutProps) {
+  // Transform data for DescriptionSection component with safe fallbacks
+  const aboutItems = [
+    {
+      id: 1,
+      title: "About",
+      description: about.description || "No description available.",
+      images: about.images || ['/images/placeholder.jpg'], // Pass array
+    }
+  ];
+
+  const solutionsItems = [
+    {
+      id: 2,
+      title: "Solutions",
+      description: solutions.description || "No description available.",
+      additionalDescription: solutions.additionalInfo || "",
+      images: solutions.images || ['/images/placeholder.jpg'], // Pass array
+    }
+  ];
+
   return (
     <div className="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
-      <Head title="About Us - Agency Inc." />
+      <Head title={`${project.name} - About Us`} />
 
       <Header />
 
-      {/* Projects Name Header Section */}
-      <section className="py-16 px-4 md:px-6 bg-white dark:bg-gray-900">
+      {/* Project Header Section */}
+      <section className="py-16 px-6 bg-white dark:bg-gray-900">
         <div className="container mx-auto max-w-7xl">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-16">
             {project.name}
           </h1>
 
           {/* Project Details Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-            <div>
+          <div className="flex justify-between gap-2">
+            <div className="w-1/2 ">
               <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wider">
                 PROJECT TYPE
               </h3>
@@ -51,7 +72,7 @@ export default function About({ project, about, solutions }: AboutProps) {
               </p>
             </div>
 
-            <div>
+            <div className="w-1/4">
               <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wider">
                 TIMELINE
               </h3>
@@ -60,7 +81,7 @@ export default function About({ project, about, solutions }: AboutProps) {
               </p>
             </div>
 
-            <div>
+            <div className="w-1/5">
               <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wider">
                 CLIENT
               </h3>
@@ -72,109 +93,21 @@ export default function About({ project, about, solutions }: AboutProps) {
         </div>
       </section>
 
-      {/* About Section */}
-      <section className="py-16 px-4 md:px-6 bg-white dark:bg-gray-900">
-        <div className="container mx-auto max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-            {/* Left Column - Title */}
-            <div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-8">
-                About
-              </h2>
-            </div>
+      {/* About Section - Using DescriptionSection Component */}
+      <DescriptionSection
+        items={aboutItems}
+        backgroundColor="bg-white dark:bg-gray-900"
+        columns={2}
+        showBackground={false}
+      />
 
-            {/* Right Column - Content */}
-            <div className="space-y-8">
-              <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-sm sm:text-base">
-                {about.description}
-              </p>
-
-              {/* Display Images from images folder - Theme Adaptive */}
-              {about.images.map((image, index) => (
-                <div 
-                  key={index}
-                  className="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 rounded-3xl overflow-hidden shadow-lg dark:shadow-gray-900/50"
-                >
-                  <img
-                    src={image}
-                    alt={`About image ${index + 1}`}
-                    className="w-full h-auto object-cover"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.style.display = "none";
-                      const parent = target.parentElement;
-                      if (parent) {
-                        parent.innerHTML = `
-                          <div class="w-full h-64 bg-gradient-to-br from-gray-300 to-gray-400 dark:from-gray-600 dark:to-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-300">
-                            <div class="text-center p-6">
-                              <div class="text-lg mb-2">Image not found</div>
-                              <div class="text-sm opacity-60">${image}</div>
-                            </div>
-                          </div>
-                        `;
-                      }
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Solutions Section */}
-      <section className="py-16 px-4 md:px-6 bg-white dark:bg-gray-900">
-        <div className="container mx-auto max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-            {/* Left Column - Title */}
-            <div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-8">
-                Solutions
-              </h2>
-            </div>
-
-            {/* Right Column - Content */}
-            <div className="space-y-8">
-              <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-sm sm:text-base">
-                {solutions.description}
-              </p>
-
-              <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-sm sm:text-base">
-                {solutions.additionalInfo}
-              </p>
-
-              {/* Display Solutions Images - Theme Adaptive */}
-              {solutions.images.map((image, index) => (
-                <div 
-                  key={index}
-                  className="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 rounded-3xl overflow-hidden shadow-lg dark:shadow-gray-900/50"
-                >
-                  <img
-                    src={image}
-                    alt={`Solution image ${index + 1}`}
-                    className="w-full h-auto object-cover"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.style.display = "none";
-                      const parent = target.parentElement;
-                      if (parent) {
-                        parent.innerHTML = `
-                          <div class="w-full h-64 bg-gradient-to-br from-gray-300 to-gray-400 dark:from-gray-600 dark:to-gray-700 flex items-center justify-center text-gray-600 dark:text-gray-300">
-                            <div class="text-center p-6">
-                              <div class="text-lg mb-2">Image not found</div>
-                              <div class="text-sm opacity-60">${image}</div>
-                            </div>
-                          </div>
-                        `;
-                      }
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Solutions Section - Using DescriptionSection Component */}
+      <DescriptionSection
+        items={solutionsItems}
+        backgroundColor="bg-white dark:bg-gray-900"
+        columns={2}
+        showBackground={false}
+      />
 
       <Footer />
     </div>
