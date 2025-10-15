@@ -22,6 +22,7 @@ interface Project {
   name: string;
   description: string;
   image: string;
+  imageDark?: string;
   category: string;
   technologies: string[];
 }
@@ -31,13 +32,14 @@ interface Blog {
   title: string;
   description: string;
   image: string;
+  imageDark?: string;
   date: string;
 }
 
 interface DescriptionItem {
   id: number;
   title: string;
-  content: string[];
+  content: string[]; // Keep this as it comes from PHP
 }
 
 interface InformationItem {
@@ -63,6 +65,15 @@ export default function Landing({
   descriptionItems,
   informationItems,
 }: LandingProps) {
+  // Transform descriptionItems to match DescriptionSection's expected format
+  const transformedDescriptionItems = descriptionItems.map(item => ({
+    id: item.id,
+    title: item.title,
+    description: item.content[0] || '', // First paragraph as main description
+    additionalDescription: item.content.slice(1).join('\n\n'), // Rest as additional
+    images: [] // Empty array as landing page descriptions don't have images
+  }));
+
   return (
     <div className="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
       <Head title="Agency Inc. - Creative Digital Solutions" />
@@ -77,14 +88,27 @@ export default function Landing({
       />
 
       <DescriptionSection
-        items={descriptionItems}
+        items={transformedDescriptionItems}
         backgroundColor="bg-white dark:bg-gray-900"
         columns={2}
         showBackground={true}
       />
 
-      <WorkSection projects={projects} />
-      <BlogSection blogs={blogs} />
+      <WorkSection 
+        projects={projects}
+        title="Work"
+        showAll={false}
+        limit={3}
+        backgroundColor="bg-white dark:bg-gray-900"
+      />
+
+      <BlogSection 
+        blogs={blogs}
+        title="Blog"
+        showAll={false}
+        limit={3}
+        backgroundColor="bg-white dark:bg-gray-900"
+      />
 
       <InformationSection
         title="Information"
