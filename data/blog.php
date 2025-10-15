@@ -6,7 +6,7 @@ return [
         'author' => [
             'name' => 'Shelby Daugherty',
             'role' => 'Posted on June 13, 2023 4:11pm utc',
-            'avatar' => '/images/author-avatar.jpg',
+            'avatar' => '/images/AutherImage.png',
             'initials' => 'SD'
         ],
         'featuredImage' => '/images/office--img.jpg',
