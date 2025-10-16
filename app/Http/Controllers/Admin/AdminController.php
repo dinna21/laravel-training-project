@@ -55,19 +55,7 @@ class AdminController extends Controller
      */
     public function dashboard(): Response
     {
-        // Enhanced stats for blog management
-        $stats = [
-            'users' => User::count(),
-            'totalBlogs' => 89, // Replace with actual blog count
-            'publishedBlogs' => 77, // Replace with actual count
-            'draftBlogs' => 12, // Replace with actual count
-            'views' => 45678,
-            'revenue' => '$12,345'
-        ];
-
-        return Inertia::render('admin/dashboard', [
-            'stats' => $stats,
-        ]);
+        return Inertia::render('admin/dashboard');
     }
 
     /**
