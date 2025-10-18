@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\Blog;
 
 class AdminController extends Controller
 {
@@ -34,14 +35,16 @@ class AdminController extends Controller
         $user = User::where('email', $request->email)->first();
 
         // Check if user exists, password matches, and user is admin
-        if ($user && 
-            Hash::check($request->password, $user->password) && 
-            $user->is_admin) {
-            
+        if (
+            $user &&
+            Hash::check($request->password, $user->password) &&
+            $user->is_admin
+        ) {
+
             $request->session()->put('admin_authenticated', true);
             $request->session()->put('admin_email', $request->email);
             $request->session()->put('admin_user_id', $user->id);
-            
+
             return redirect()->route('admin.dashboard');
         }
 
@@ -55,7 +58,25 @@ class AdminController extends Controller
      */
     public function dashboard(): Response
     {
-        return Inertia::render('admin/dashboard');
+        $blogs = Blog::with('user')
+            ->latest()
+            ->take(3) // show latest 3 blogs on dashboard
+            ->get()
+            ->map(function ($blog) {
+                return [
+                    'id' => $blog->id,
+                    'title' => $blog->title,
+                    'description' => $blog->description,
+                    'author' => $blog->author_name ?? $blog->user->name,
+                    'date' => $blog->created_at->format('d M Y'),
+                    'status' => $blog->status,
+                    'featured_image' => $blog->featured_image,
+                ];
+            });
+
+        return Inertia::render('admin/dashboard', [
+            'blogs' => $blogs,
+        ]);
     }
 
     /**
