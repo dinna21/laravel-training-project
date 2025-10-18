@@ -1,49 +1,65 @@
 <?php
 
-use App\Http\Controllers\BlogController;
-use App\Http\Controllers\LandinController;
-use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\AboutController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-// Route::get('/', function () {
-//     return Inertia::render('welcome');
-// })->name('home');
+use App\Http\Controllers\LandinController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\BlogController as AdminBlogController;
 
-Route::get('/', [LandinController::class, 'index'])->name(('landing'));
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
-});
 
-// company page route 
-Route::get('/company', [CompanyController::class, 'index'])->name('company'); // Add this
+// Landing page
+Route::get('/', [LandinController::class, 'index'])->name('landing');
 
-// services page route
-Route::get('/services', [App\Http\Controllers\ServicesController::class, 'index'])->name('services');
+// Company page
+Route::get('/company', [CompanyController::class, 'index'])->name('company');
 
-//Blog page route 
-Route::get('/blog', [BlogController::class,'index'])->name('blog');
-// About page route
+// Services page
+Route::get('/services', [ServicesController::class, 'index'])->name('services');
 
-Route::get('/about', [AboutController::class, 'index'])->name('about');require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
+// Blog (public view)
+Route::get('/blog', [AdminBlogController::class, 'latest'])->name('blog.latest');
 
-// Admin Routes
+// About page
+Route::get('/about', [AboutController::class, 'index'])->name('about');
+
+
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/login', [App\Http\Controllers\Admin\AdminController::class, 'showLogin'])->name('login');
-    Route::post('/login', [App\Http\Controllers\Admin\AdminController::class, 'login'])->name('login.store');
-    
+
+    // Admin Login
+    Route::get('/login', [AdminController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AdminController::class, 'login'])->name('login.store');
+
+    // Protected Admin Routes (requires custom 'admin' middleware)
     Route::middleware(['admin'])->group(function () {
-        Route::get('/dashboard', [App\Http\Controllers\Admin\AdminController::class, 'dashboard'])->name('dashboard');
-        Route::post('/logout', [App\Http\Controllers\Admin\AdminController::class, 'logout'])->name('logout');
+
+        // Dashboard
+        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+
+        // Logout
+        Route::post('/logout', [AdminController::class, 'logout'])->name('logout');
+
+
+        Route::prefix('blogs')->name('blogs.')->group(function () {
+            Route::get('/', [AdminBlogController::class, 'index'])->name('index');
+            Route::get('/create', [AdminBlogController::class, 'create'])->name('create');
+            Route::post('/', [AdminBlogController::class, 'store'])->name('store');
+            Route::get('/{blog}/edit', [AdminBlogController::class, 'edit'])->name('edit');
+            Route::put('/{blog}', [AdminBlogController::class, 'update'])->name('update');
+            Route::delete('/{blog}', [AdminBlogController::class, 'destroy'])->name('destroy');
+        });
     });
 });
 
 
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
+// Public Blog Routes
+Route::get('/blog/{blog}', [AdminBlogController::class, 'show'])->name('blog.show');
+Route::get('/blogs', [AdminBlogController::class, 'publicIndex'])->name('blogs.public');
+
+// Include settings and auth routes
+require __DIR__ . '/settings.php';  
+require __DIR__ . '/auth.php';
