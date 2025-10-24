@@ -1,38 +1,58 @@
 import { NavMain } from '@/components/nav-main';
 import { NavUser } from '@/components/nav-user';
-import { Sidebar, SidebarContent, SidebarFooter } from '@/components/ui/sidebar';
-import { usePage } from '@inertiajs/react';
-import { Shield, FileText, FilePlus, Home, Users, Settings } from 'lucide-react';
+import { AdminNavUser } from '@/components/admin-nav-user';
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
+import { usePage, Link } from '@inertiajs/react';
+import { 
+  LayoutDashboard, 
+  FilePlus, 
+  Home, 
+  User, 
+  Settings, 
+  List, 
+  BookOpen,
+  Newspaper,
+  FileEdit,
+  FolderOpen,
+  PenSquare,
+  Eye,
+  Trash2,
+  Mail,
+  Bell,
+  Users
+} from 'lucide-react';
 import { type NavItem } from '@/types';
 
 const adminNavItems: NavItem[] = [
   {
     title: 'Dashboard',
     href: '/admin/dashboard',
-    icon: Shield,
+    icon: LayoutDashboard,
   },
   {
-    title: 'Blogs',
+    title: 'All Blogs',
     href: '/admin/blogs',
-    icon: FileText,
+    icon: FolderOpen,
   },
   {
     title: 'Create Blog',
     href: '/admin/blogs/create',
     icon: FilePlus,
   },
-];
-
-const userNavItems: NavItem[] = [
   {
-    title: 'Home',
-    href: '/',
-    icon: Home,
+    title: 'Users',
+    href: '/admin/users',
+    icon: Users,
   },
   {
-    title: 'Profile',
-    href: '/profile',
-    icon: Users,
+    title: 'Messages',
+    href: '/admin/messages',
+    icon: Mail,
+  },
+  {
+    title: 'Notifications',
+    href: '/admin/notifications',
+    icon: Bell,
   },
   {
     title: 'Settings',
@@ -42,35 +62,48 @@ const userNavItems: NavItem[] = [
 ];
 
 export function AppSidebar() {
-  const { auth } = usePage().props as any;
+  const { auth, url } = usePage().props as any;
   const isAdmin = auth?.user?.role === 'admin' || auth?.user?.is_admin;
+  const currentUrl = url || '';
+
+  // Only show sidebar if user is admin
+  if (!isAdmin) {
+    return null;
+  }
 
   return (
-    <Sidebar collapsible="icon" variant="inset">
-      <SidebarContent>
-        {isAdmin ? (
-          <>
-            <div className="px-3 py-2">
-              <h2 className="mb-2 px-4 text-xs font-semibold tracking-tight text-muted-foreground">
-                Admin
-              </h2>
-            </div>
-            <NavMain items={adminNavItems} />
-          </>
-        ) : (
-          <>
-            <div className="px-3 py-2">
-              <h2 className="mb-2 px-4 text-xs font-semibold tracking-tight text-muted-foreground">
-                Navigation
-              </h2>
-            </div>
-            <NavMain items={userNavItems} />
-          </>
-        )}
+    <Sidebar collapsible="icon" variant="sidebar" className="border-r border-sidebar-border">
+      <SidebarContent className="gap-0">
+        <SidebarGroup className="py-0">
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {adminNavItems.map((item, index) => {
+                const href = typeof item.href === 'string' ? item.href : item.href.url;
+                const isActive = currentUrl === href || currentUrl.startsWith(href + '/');
+                const IconComponent = item.icon;
+                
+                return (
+                  <SidebarMenuItem key={`nav-item-${index}`}>
+                    <SidebarMenuButton 
+                      asChild 
+                      tooltip={item.title}
+                      isActive={isActive}
+                    >
+                      <Link href={href}>
+                        {IconComponent && <IconComponent className="h-5 w-5" />}
+                        <span>{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
       </SidebarContent>
 
       <SidebarFooter>
-        <NavUser />
+        <AdminNavUser />
       </SidebarFooter>
     </Sidebar>
   );
