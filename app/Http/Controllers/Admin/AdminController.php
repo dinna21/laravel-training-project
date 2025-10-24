@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\Blog;
@@ -24,34 +25,35 @@ class AdminController extends Controller
     /**
      * Handle admin login
      */
-    public function login(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+public function login(Request $request): RedirectResponse
+{
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
 
-        // Find user by email
-        $user = User::where('email', $request->email)->first();
+    // Find user by email
+    $user = User::where('email', $request->email)->first();
 
-        // Check if user exists, password matches, and user is admin
-        if (
-            $user &&
-            Hash::check($request->password, $user->password) &&
-            $user->is_admin
-        ) {
+    // Check if user exists, password matches, and user is admin
+    if (
+        $user &&
+        Hash::check($request->password, $user->password) &&
+        $user->is_admin
+    ) {
+        // Use Laravel Auth instead of session
+        Auth::login($user);
+        
+        $request->session()->regenerate();
+        $request->session()->put('admin_authenticated', true);
 
-            $request->session()->put('admin_authenticated', true);
-            $request->session()->put('admin_email', $request->email);
-            $request->session()->put('admin_user_id', $user->id);
-
-            return redirect()->route('admin.dashboard');
-        }
-
-        return back()->withErrors([
-            'email' => 'Invalid admin credentials or insufficient permissions.',
-        ]);
+        return redirect()->route('admin.dashboard');
     }
+
+    return back()->withErrors([
+        'email' => 'Invalid admin credentials or insufficient permissions.',
+    ]);
+}
 
     /**
      * Show admin dashboard
