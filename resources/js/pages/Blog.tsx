@@ -88,8 +88,9 @@ export default function Blog({ blog }: BlogProps) {
                 {/* Blog Content */}
                 <div className="prose prose-lg dark:prose-invert max-w-none mb-16">
                     <div className="space-y-6 text-gray-700 dark:text-gray-300 leading-relaxed">
-                        <p>{blog.description}</p>
                         <div dangerouslySetInnerHTML={{ __html: blog.content }} />
+                        <p>{blog.description}</p>
+                        
                     </div>
                 </div>
 
