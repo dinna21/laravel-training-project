@@ -1,12 +1,16 @@
 import { Link, router } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import { Edit, Trash2 } from 'lucide-react';
 
 interface Blog {
   id: number;
   title: string;
+  subtitle?: string;
+  category?: string;
   description: string;
   author: string;
+  author_name?: string;
   date: string;
   status: 'published' | 'draft';
   featured_image: string | null;
@@ -24,27 +28,31 @@ export default function BlogList({ blogs }: BlogListProps) {
   };
 
   if (!blogs.length) {
-    return <p className="text-muted-foreground">No blogs available.</p>;
+    return (
+      <div className="text-center py-12">
+        <p className="text-muted-foreground text-lg">No blogs available.</p>
+      </div>
+    );
   }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {blogs.map((blog) => (
-        <div
-          key={blog.id}
-          className="rounded-lg border border-border bg-card overflow-hidden hover:shadow-lg transition-shadow"
-        >
+        <Card key={blog.id} className="overflow-hidden hover:shadow-lg transition-all duration-300 group">
+          {/* Featured Image */}
           {blog.featured_image && (
             <div className="aspect-video overflow-hidden bg-muted">
               <img
                 src={`/storage/${blog.featured_image}`}
                 alt={blog.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
           )}
-          <div className="p-6">
-            <div className="flex items-center justify-between mb-2">
+
+          <CardContent className="p-6 space-y-3">
+            {/* Status & Category */}
+            <div className="flex items-center gap-2">
               <span
                 className={`inline-flex rounded-full px-2 py-1 text-xs font-medium ${
                   blog.status === 'published'
@@ -54,15 +62,40 @@ export default function BlogList({ blogs }: BlogListProps) {
               >
                 {blog.status}
               </span>
-              <span className="text-xs text-muted-foreground">{blog.date}</span>
+              {blog.category && (
+                <span className="inline-flex rounded-full px-2 py-1 text-xs font-medium bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
+                  {blog.category}
+                </span>
+              )}
             </div>
-            <h3 className="text-lg font-semibold text-foreground mb-2 line-clamp-2">{blog.title}</h3>
-            <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{blog.description}</p>
-            <div className="flex items-center justify-between">
-              <span className="text-xs text-muted-foreground">By {blog.author}</span>
+
+            {/* Title */}
+            <h3 className="text-lg font-semibold text-foreground line-clamp-2 group-hover:text-primary transition-colors">
+              {blog.title}
+            </h3>
+
+            {/* Subtitle */}
+            {blog.subtitle && (
+              <p className="text-sm text-muted-foreground line-clamp-1">
+                {blog.subtitle}
+              </p>
+            )}
+
+            {/* Description */}
+            <p className="text-sm text-muted-foreground line-clamp-2">
+              {blog.description}
+            </p>
+
+            {/* Footer */}
+            <div className="flex items-center justify-between pt-3 border-t">
+              <div className="text-xs text-muted-foreground space-y-1">
+                <p>By {blog.author_name || blog.author}</p>
+                <p>{blog.date}</p>
+              </div>
+              
               <div className="flex gap-2">
                 <Link href={`/admin/blogs/${blog.id}/edit`}>
-                  <Button size="sm" variant="ghost">
+                  <Button size="sm" variant="ghost" className="hover:bg-primary/10">
                     <Edit className="h-4 w-4" />
                   </Button>
                 </Link>
@@ -76,8 +109,8 @@ export default function BlogList({ blogs }: BlogListProps) {
                 </Button>
               </div>
             </div>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
       ))}
     </div>
   );
