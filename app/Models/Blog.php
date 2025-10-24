@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,6 +12,8 @@ class Blog extends Model
 
     protected $fillable = [
         'title',
+        'subtitle',
+        'category',
         'description',
         'content',
         'featured_image',
@@ -22,8 +25,7 @@ class Blog extends Model
     ];
 
     protected $casts = [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
+        'status' => 'string',
     ];
 
     /**
