@@ -68,7 +68,7 @@ export default function DescriptionSection({
                       <img
                         src={item.images[0]}
                         alt={`${item.title} - Image 1`}
-                        className="w-[537px] h-[337px] rounded-lg object-cover"
+                        className="w-[537px] h-[337px] rounded-lg"
                       />
                     </div>
 
