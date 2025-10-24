@@ -24,8 +24,11 @@ class BlogController extends Controller
                 return [
                     'id' => $blog->id,
                     'title' => $blog->title,
+                    'subtitle' => $blog->subtitle,           
+                    'category' => $blog->category,          
                     'description' => $blog->description,
                     'author' => $blog->author_name ?? $blog->user->name,
+                    'author_name' => $blog->author_name,    
                     'date' => $blog->formatted_date,
                     'status' => $blog->status,
                     'featured_image' => $blog->featured_image,
@@ -48,10 +51,13 @@ class BlogController extends Controller
     /**
      * Store a newly created blog.
      */
+
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
+            'subtitle' => 'nullable|string|max:200',
+            'category' => 'nullable|string|max:100',
             'description' => 'required|string',
             'content' => 'required|string',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -88,6 +94,8 @@ class BlogController extends Controller
             'blog' => [
                 'id' => $blog->id,
                 'title' => $blog->title,
+                'subtitle' => $blog->subtitle,           
+                'category' => $blog->category,           
                 'description' => $blog->description,
                 'content' => $blog->content,
                 'featured_image' => $blog->featured_image,
@@ -106,6 +114,8 @@ class BlogController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
+            'subtitle' => 'nullable|string|max:200',   
+            'category' => 'nullable|string|max:100',      
             'description' => 'required|string',
             'content' => 'required|string',
             'featured_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
