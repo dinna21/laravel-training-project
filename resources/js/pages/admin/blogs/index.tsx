@@ -1,5 +1,5 @@
 import { Head, Link } from '@inertiajs/react';
-import AppSidebarLayout from '@/layouts/app/app-sidebar-layout';
+import AppLayout from '@/layouts/app-layout';  // Change this
 import BlogList from '@/components/BlogList';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
@@ -8,8 +8,11 @@ import { type BreadcrumbItem } from '@/types';
 interface Blog {
   id: number;
   title: string;
+  subtitle?: string;
+  category?: string;
   description: string;
   author: string;
+  author_name?: string;
   date: string;
   status: 'published' | 'draft';
   featured_image: string | null;
@@ -32,7 +35,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function BlogsIndex({ blogs }: BlogsIndexProps) {
   return (
-    <AppSidebarLayout breadcrumbs={breadcrumbs}>
+    <AppLayout breadcrumbs={breadcrumbs}>
       <Head title="Manage Blogs" />
       <div className="flex flex-col gap-6 p-6">
         <div className="flex justify-between items-center">
@@ -48,6 +51,6 @@ export default function BlogsIndex({ blogs }: BlogsIndexProps) {
         </div>
         <BlogList blogs={blogs} />
       </div>
-    </AppSidebarLayout>
+    </AppLayout>
   );
 }
