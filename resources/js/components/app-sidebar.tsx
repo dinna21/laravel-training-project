@@ -7,8 +7,6 @@ import {
   LayoutDashboard, 
   FilePlus, 
   Home, 
-  User, 
-  Settings, 
   List, 
   BookOpen,
   Newspaper,
@@ -17,7 +15,6 @@ import {
   PenSquare,
   Eye,
   Trash2,
-  Mail,
   Bell,
   Users
 } from 'lucide-react';
@@ -38,27 +35,7 @@ const adminNavItems: NavItem[] = [
     title: 'Create Blog',
     href: '/admin/blogs/create',
     icon: FilePlus,
-  },
-  {
-    title: 'Users',
-    href: '/admin/users',
-    icon: Users,
-  },
-  {
-    title: 'Messages',
-    href: '/admin/messages',
-    icon: Mail,
-  },
-  {
-    title: 'Notifications',
-    href: '/admin/notifications',
-    icon: Bell,
-  },
-  {
-    title: 'Settings',
-    href: '/settings',
-    icon: Settings,
-  },
+  }
 ];
 
 export function AppSidebar() {
