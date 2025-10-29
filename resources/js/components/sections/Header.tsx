@@ -19,7 +19,6 @@ export default function Header({ brandName = "Agency Inc.", transparent = false 
     { href: "/blog", label: "Blog" },
     { href: "/about", label: "About Us" },
     { href: "/company", label: "Company" },
-    { href: "#contact", label: "Contact" }
   ];
 
   const closeMobileMenu = () => setIsOpen(false);
