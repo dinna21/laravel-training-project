@@ -43,7 +43,7 @@ export default function Footer({
       )}
 
       {/* Footer */}
-      <footer className="py-16 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+      <footer className="py-16 px-30 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
         <div className="container mx-auto px-6">
           {/* Main Footer Content */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-30 mb-1  ">

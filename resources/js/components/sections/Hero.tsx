@@ -25,7 +25,7 @@ export default function Hero({
 }: HeroProps) {
   return (
 
-    <section className="py-1 px-6 text-center relative overflow-hidden mt-8">
+    <section className="py-16 px-30 text-center relative overflow-hidden mt-8">
       {backgroundImage && (
         <div className="absolute inset-0 z-0">
           <img src={backgroundImage} alt="" className="w-full h-full object-cover opacity-20" />

@@ -34,7 +34,7 @@ export default function WorkSection({
   const { appearance } = useAppearance();
 
   return (
-    <section className={`py-16 px-6 ${backgroundColor}`}>
+    <section className={`py-16 px-30 ${backgroundColor}`}>
       <div className="container mx-auto">
         <div className="flex justify-between items-center mb-8">
           <h3 className="text-3xl font-bold text-gray-900 dark:text-gray-100">{title} →</h3>

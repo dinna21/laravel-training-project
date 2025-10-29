@@ -25,7 +25,7 @@ export default function InformationSection({
   showArrow = true
 }: InformationSectionProps) {
   return (
-    <section className={`py-16 px-6 ${backgroundColor}`}>
+    <section className={`py-16 px-30 ${backgroundColor}`}>
       <div className="container mx-auto max-w-6xl">
         <div className={`grid ${titlePosition === 'left' ? 'md:grid-cols-2' : 'grid-cols-1'} gap-12`}>
           {/* Title Section */}
