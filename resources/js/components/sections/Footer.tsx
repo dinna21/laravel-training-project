@@ -21,7 +21,7 @@ export default function Footer({
     <>
       {/* Contact Section */}
       {showContact && (
-        <section id="contact" className="py-16 px-6 bg-white dark:bg-gray-900 text-center">
+        <section id="contact" className="py-16 px- bg-white dark:bg-gray-900 text-center">
           <div className="container mx-auto">
             <h3 className="text-3xl font-bold mb-6 text-gray-900 dark:text-gray-100">
               {contactTitle}
@@ -46,7 +46,7 @@ export default function Footer({
       <footer className="py-16 px-30 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
         <div className="container mx-auto px-6">
           {/* Main Footer Content */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-30 mb-1  ">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-30 mb-1 justify-items-center">
             {/* Philosophy Column */}
             <div>
               <h4 className="font-semibold mb-8 text-gray-900 dark:text-gray-100 flex items-center">
@@ -139,7 +139,7 @@ export default function Footer({
           </div>
 
           {/* Company Info Section */}
-          <div className="mb-6">
+          <div className="mb-6 text-center">
             <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">
               {companyName}
             </h3>
