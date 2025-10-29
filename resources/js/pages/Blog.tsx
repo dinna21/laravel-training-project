@@ -98,13 +98,13 @@ export default function Blog({ blog }: BlogProps) {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="rounded-2xl p-6 border border-white/30 dark:border-gray-700 bg-[linear-gradient(131.78deg,#3B3D35_-2.99%,#DDD9D7_107.43%)] dark:bg-[linear-gradient(347.24deg,#0F93FF_-105.12%,#F5FEE6_91.01%)]">
                         <p className="mb-4 font-medium text-white dark:text-gray-900">
-                            Read More Blogs
+                            Felis amet orci diam at
                         </p>
                         <button
                             className="flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 backdrop-blur-sm bg-white/20 hover:bg-white/30 dark:bg-black/10 dark:hover:bg-black/20 text-white dark:text-gray-900 border border-white/40 dark:border-black/20"
-                            onClick={() => (window.location.href = "/admin/blogs")}
+                            
                         >
-                            View All
+                            History
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                             </svg>
@@ -113,13 +113,13 @@ export default function Blog({ blog }: BlogProps) {
 
                     <div className="rounded-2xl p-6 border border-white/30 dark:border-gray-700 bg-[linear-gradient(10.12deg,#999999_0%,#000000_96.91%)] dark:bg-[linear-gradient(90deg,#A5FDCB_0%,#CDFDE7_100%)]">
                         <p className="mb-4 font-medium text-white dark:text-gray-900">
-                            Go to Dashboard
+                            Praesent in cras nam quis ultrices. 
                         </p>
                         <button
-                            className="flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 backdrop-blur-sm bg-white/20 hover:bg-white/30 dark:bg-black/10 dark:hover:bg-black/20 text-white dark:text-gray-900 border border-white/40 dark:border-black/20"
-                            onClick={() => (window.location.href = "/admin/dashboard")}
+                            className="flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 backdrop-blur-sm bg-white/20 hover:bg-white/30 dark:bg-black/10
+                            dark:hover:bg-black/20 text-white dark:text-gray-900 border border-white/40 dark:border-black/20"
                         >
-                            Dashboard
+                            Outline
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                             </svg>
