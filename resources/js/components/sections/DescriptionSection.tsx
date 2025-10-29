@@ -26,7 +26,7 @@ export default function DescriptionSection({
   const { appearance } = useAppearance();
 
   return (
-    <section className={`py-16 px-6 ${backgroundColor}`}>
+    <section className={`py-16 px-30 ${backgroundColor}`}>
       <div className="container mx-auto">
         {title && (
           <div className="text-center mb-8">
