@@ -1,0 +1,323 @@
+/* ==========================================
+   REUSABLE ANIMATIONS FOR SECTIONS
+   ========================================== */
+
+/* Keyframe Animations */
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pulseArrow {
+  0%, 100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(4px);
+    opacity: 0.8;
+  }
+}
+
+/* ==========================================
+   SCROLL ANIMATION CLASSES
+   ========================================== */
+
+.header-animate {
+  animation: slideInFromLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.card-animate {
+  animation: fadeInScale 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+/* ==========================================
+   CARD STYLES
+   ========================================== */
+
+.animated-card {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animated-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.05) 0%,
+    transparent 50%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.animated-card:hover::after {
+  opacity: 1;
+}
+
+.animated-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Blog Card Specific Styles */
+.blog-card {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.blog-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.05) 0%,
+    transparent 50%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.blog-card:hover::after {
+  opacity: 1;
+}
+
+.blog-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* ==========================================
+   IMAGE STYLES
+   ========================================== */
+
+.animated-image {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animated-card:hover .animated-image {
+  transform: scale(1.08);
+}
+
+.blog-image {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.blog-card:hover .blog-image {
+  transform: scale(1.08);
+}
+
+/* Image Overlay */
+.image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 2;
+}
+
+.animated-card:hover .image-overlay,
+.blog-card:hover .image-overlay {
+  opacity: 1;
+}
+
+/* ==========================================
+   TEXT & ARROW ANIMATIONS
+   ========================================== */
+
+.arrow-bounce:hover {
+  animation: pulseArrow 0.8s ease-in-out infinite;
+}
+
+.animated-text {
+  transition: all 0.3s ease;
+}
+
+.animated-card:hover .animated-text {
+  color: rgb(59, 130, 246);
+}
+
+/* Date Number Animation */
+.date-number {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-block;
+}
+
+.blog-card:hover .date-number {
+  color: rgb(59, 130, 246);
+  transform: scale(1.05);
+}
+
+/* Date Text Animation */
+.date-text {
+  transition: all 0.3s ease;
+}
+
+.blog-card:hover .date-text {
+  color: rgb(59, 130, 246);
+  letter-spacing: 0.1em;
+}
+
+/* Title Underline Effect */
+.title-underline {
+  position: relative;
+  transition: color 0.3s ease;
+  display: inline-block;
+}
+
+.title-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, rgb(59, 130, 246), rgb(147, 51, 234));
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.animated-card:hover .title-underline::after {
+  width: 100%;
+}
+
+/* Blog Title Animation */
+.blog-title {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.blog-title::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, rgb(59, 130, 246), rgb(147, 51, 234));
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.blog-card:hover .blog-title::after {
+  width: 100%;
+}
+
+/* ==========================================
+   BUTTON STYLES
+   ========================================== */
+
+.shimmer-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(59, 130, 246, 0.1),
+    transparent
+  );
+  transition: left 0.5s ease;
+  z-index: 0;
+}
+
+.shimmer-btn:hover::before {
+  left: 100%;
+}
+
+/* View All Button */
+.view-all-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.view-all-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(59, 130, 246, 0.1),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.view-all-btn:hover::before {
+  left: 100%;
+}
+
+/* ==========================================
+   BADGE STYLES
+   ========================================== */
+
+.animated-badge {
+  transition: all 0.3s ease;
+}
+
+.animated-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+  border-color: rgb(59, 130, 246);
+  color: rgb(59, 130, 246);
+}
+
+/* ==========================================
+   DARK MODE ADJUSTMENTS
+   ========================================== */
+
+.dark .animated-card:hover,
+.dark .blog-card:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.dark .animated-badge:hover {
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
