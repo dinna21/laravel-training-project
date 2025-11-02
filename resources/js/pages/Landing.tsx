@@ -1,3 +1,4 @@
+//here is the landing page that uses various sections to build the complete page layout
 import { Head } from "@inertiajs/react";
 import Header from "@/components/sections/Header";
 import Hero from "@/components/sections/Hero";
