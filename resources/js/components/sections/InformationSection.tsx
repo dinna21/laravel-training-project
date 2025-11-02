@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import '@/../../resources/css/company-animations.css';
 
 interface InformationItem {
   id?: number;
@@ -31,14 +32,14 @@ export default function InformationSection({
           {/* Title Section */}
           {titlePosition === 'left' ? (
             <div className="flex items-start">
-              <h3 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-                {title} {showArrow && '→'}
+              <h3 className="text-3xl font-bold text-gray-900 dark:text-gray-100 company-title-animate">
+                {title} {showArrow && <span className="inline-block arrow-pulse">→</span>}
               </h3>
             </div>
           ) : (
             <div className="text-center mb-8 col-span-full">
-              <h3 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-                {title} {showArrow && '→'}
+              <h3 className="text-3xl font-bold text-gray-900 dark:text-gray-100 company-title-animate">
+                {title} {showArrow && <span className="inline-block arrow-pulse">→</span>}
               </h3>
             </div>
           )}
@@ -48,32 +49,32 @@ export default function InformationSection({
             {items.map((item, index) => (
               <div 
                 key={item.id || index} 
-                className="flex items-start gap-6 pb-6 border-b border-gray-200 dark:border-gray-700 last:border-b-0"
+                className={`flex items-start gap-6 pb-6 border-b border-gray-200 dark:border-gray-700 last:border-b-0 info-item-animate info-item-hover animate-delay-${Math.min((index + 1) * 100, 600)}`}
               >
                 {/* Number */}
-                <div className="text-3xl font-bold text-gray-900 dark:text-gray-100 min-w-[60px]">
+                <div className="text-3xl font-bold text-gray-900 dark:text-gray-100 min-w-[60px] info-number-badge">
                   {item.number}
                 </div>
                 
                 {/* Content */}
                 <div className="flex-1">
-                  <h4 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-3">
+                  <h4 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-3 info-title">
                     {item.title}
                   </h4>
                   
                   {item.buttonLink ? (
                     <a 
                       href={item.buttonLink}
-                      className="inline-block text-sm text-gray-600 dark:text-gray-300 border border-gray-300 dark:border-gray-600 px-3 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                      className="inline-block text-sm text-gray-600 dark:text-gray-300 border border-gray-300 dark:border-gray-600 px-3 py-1 rounded transition-colors info-button"
                     >
-                      {item.buttonText} →
+                      {item.buttonText} <span className="inline-block arrow-slide">→</span>
                     </a>
                   ) : (
                     <button 
                       onClick={item.onClick}
-                      className="text-sm text-gray-600 dark:text-gray-300 border border-gray-300 dark:border-gray-600 px-3 py-1 rounded hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                      className="text-sm text-gray-600 dark:text-gray-300 border border-gray-300 dark:border-gray-600 px-3 py-1 rounded transition-colors info-button"
                     >
-                      {item.buttonText} →
+                      {item.buttonText} <span className="inline-block arrow-slide">→</span>
                     </button>
                   )}
                 </div>
