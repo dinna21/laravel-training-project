@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAppearance } from '@/hooks/use-appearance';
@@ -29,15 +29,45 @@ export default function ServiceSection({
 }: ServiceSectionProps) {
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
   const { appearance } = useAppearance();
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+        rootMargin: '0px'
+      }
+    );
+
+    const section = sectionRef.current;
+    if (section) {
+      observer.observe(section);
+    }
+
+    return () => {
+      if (section) {
+        observer.unobserve(section);
+      }
+    };
+  }, []);
+
   const handleProjectClick = (projectId: number) => {
     setSelectedProject(selectedProject === projectId ? null : projectId);
   };
 
   return (
-    <section className={`py-8 md:py-16 px-4 md:px-6 ${backgroundColor}`}>
+    <section ref={sectionRef} className={`py-8 md:py-16 px-4 md:px-6 ${backgroundColor}`}>
       <div className="container mx-auto max-w-7xl">
         {/* Two Column Layout - Responsive */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start mb-12 md:mb-16">
+        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start mb-12 md:mb-16 ${isVisible ? 'header-animate' : 'opacity-0'}`}>
           {/* Left Column - Service Title */}
           <div className="order-1 lg:order-1">
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-gray-100 leading-tight">
@@ -53,7 +83,7 @@ export default function ServiceSection({
                 <Badge 
                   key={index} 
                   variant="outline" 
-                  className="px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 bg-transparent hover:bg-gray-50 dark:hover:bg-gray-800 rounded-full"
+                  className="animated-badge px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 bg-transparent hover:bg-gray-50 dark:hover:bg-gray-800 rounded-full cursor-pointer"
                 >
                   {badge}
                 </Badge>
@@ -69,30 +99,36 @@ export default function ServiceSection({
 
         {/* Work Section - Full Width */}
         <div>
-          <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6 sm:mb-8 flex items-center">
+          <h3 className={`text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6 sm:mb-8 inline-flex items-center gap-2 ${isVisible ? 'header-animate' : 'opacity-0'}`}>
             Work 
-            <span className="ml-2 text-gray-400">→</span>
+            <span className="arrow-bounce">→</span>
           </h3>
           
           {/* Projects Grid - Responsive */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {service.projects.map((project) => (
-              <div key={project.id} className="group">
+            {service.projects.map((project, index) => (
+              <div 
+                key={project.id} 
+                className={`group ${isVisible ? 'card-animate' : 'opacity-0'}`}
+                style={{
+                  animationDelay: `${0.2 + index * 0.15}s`
+                }}
+              >
                 <Card 
-                  className={`border-0 cursor-pointer hover:shadow-lg transition-all duration-300 overflow-hidden rounded-lg ${
+                  className={`animated-card border-0 cursor-pointer overflow-hidden rounded-lg ${
                     selectedProject === project.id 
                       ? 'bg-blue-600 dark:bg-blue-700' 
                       : 'bg-gray-900 dark:bg-gray-800'
                   }`}
                   onClick={() => handleProjectClick(project.id)}
                 >
-                  <CardContent className="p-0">
+                  <CardContent className="p-0 relative">
                     {/* Project Image - Responsive aspect ratio */}
-                    <div className="aspect-[4/3] sm:aspect-[4/3] relative">
+                    <div className="aspect-[4/3] sm:aspect-[4/3] relative overflow-hidden">
                       <img
                         src={appearance === 'dark' && project.imageDark ? project.imageDark : project.image}
                         alt={project.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 rounded-t-lg"
+                        className="animated-image w-full h-full object-cover rounded-t-lg"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
                           target.style.display = "none";
@@ -109,13 +145,14 @@ export default function ServiceSection({
                           }
                         }}
                       />
+                      <div className="image-overlay"></div>
                     </div>
                   </CardContent>
                 </Card>
                 
                 {/* Project Name Caption - Responsive */}
                 <div className="mt-3 sm:mt-4 px-1 sm:px-2">
-                  <h4 className="text-gray-900 dark:text-gray-100 text-sm sm:text-base font-medium">
+                  <h4 className="title-underline text-gray-900 dark:text-gray-100 text-sm sm:text-base font-medium">
                     {project.name}
                   </h4>
                 </div>
