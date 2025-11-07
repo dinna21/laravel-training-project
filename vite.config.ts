@@ -4,6 +4,8 @@ import react from '@vitejs/plugin-react';
 import laravel from 'laravel-vite-plugin';
 import { defineConfig } from 'vite';
 
+const enableWayfinder = process.env.WAYFINDER_DISABLE !== 'true';
+
 export default defineConfig({
     plugins: [
         laravel({
@@ -13,9 +15,14 @@ export default defineConfig({
         }),
         react(),
         tailwindcss(),
-        wayfinder({
-            formVariants: true,
-        }),
+        // 👇 Only include Wayfinder if not disabled
+        ...(enableWayfinder
+            ? [
+                  wayfinder({
+                      formVariants: true,
+                  }),
+              ]
+            : []),
     ],
     esbuild: {
         jsx: 'automatic',
