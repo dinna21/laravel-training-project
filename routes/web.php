@@ -33,6 +33,26 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Admin Login
     Route::get('/login', [AdminController::class, 'showLogin'])->name('login');
     Route::post('/login', [AdminController::class, 'login'])->name('login.store');
+    
+    // Debug route (remove in production)
+    Route::get('/debug/users', function () {
+        if (env('APP_DEBUG', false)) {
+            $users = \App\Models\User::all();
+            return response()->json([
+                'total_users' => $users->count(),
+                'users' => $users->map(function ($user) {
+                    return [
+                        'id' => $user->id,
+                        'email' => $user->email,
+                        'name' => $user->name,
+                        'is_admin' => $user->is_admin,
+                    ];
+                }),
+                'admin_user_exists' => \App\Models\User::where('email', 'admin@gmail.com')->exists(),
+            ]);
+        }
+        return response()->json(['error' => 'Debug mode is disabled'], 403);
+    })->name('debug.users');
 
     // Protected Admin Routes (requires custom 'admin' middleware)
     Route::middleware(['admin'])->group(function () {

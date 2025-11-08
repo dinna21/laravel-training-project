@@ -59,12 +59,18 @@ class AdminController extends Controller
             $user = User::whereRaw('LOWER(email) = ?', [strtolower($email)])->first();
         }
         
-        // Log for debugging (remove in production or use proper logging)
+        // Log for debugging
         if (!$user) {
+            $totalUsers = User::count();
+            $allUserEmails = User::pluck('email')->toArray();
+            
             Log::warning('Admin login attempt failed - user not found', [
                 'email' => $email,
                 'ip' => $request->ip(),
-                'total_users' => User::count(),
+                'total_users' => $totalUsers,
+                'existing_emails' => $allUserEmails,
+                'request_email_raw' => $request->email,
+                'normalized_email' => $email,
             ]);
         }
 
