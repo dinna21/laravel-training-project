@@ -8,6 +8,8 @@ import InformationSection from "@/components/sections/InformationSection";
 import BlogSection from "@/components/sections/BlogSection";
 import Footer from "@/components/sections/Footer";
 
+// Add a Comment 
+
 interface HeroData {
   title: string;
   badges: string[];
