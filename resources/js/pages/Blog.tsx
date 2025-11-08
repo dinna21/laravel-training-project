@@ -2,7 +2,7 @@ import { Head } from "@inertiajs/react";
 import Header from "@/components/sections/Header";
 import Footer from "@/components/sections/Footer";
 import "../../css/blog-hero-animation.css";
-
+//here is the blog page
 interface BlogProps {
     blog: {
         id: number;
