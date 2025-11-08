@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -79,19 +80,32 @@ class AdminController extends Controller
         // Clear rate limiter on successful login
         RateLimiter::clear($key);
 
-        // Login the user using Laravel Auth
-        Auth::login($user, $request->boolean('remember'));
-        
-        // Regenerate session to prevent session fixation
-        $request->session()->regenerate();
-        
-        // Set admin flag
-        $request->session()->put('admin_authenticated', true);
-        
-        // Explicitly save session (important for hosted environments)
-        $request->session()->save();
+        try {
+            // Login the user using Laravel Auth
+            Auth::login($user, $request->boolean('remember'));
+            
+            // Regenerate session to prevent session fixation
+            $request->session()->regenerate();
+            
+            // Set admin flag
+            $request->session()->put('admin_authenticated', true);
+            
+            // Explicitly save session (important for hosted environments)
+            $request->session()->save();
 
-        return redirect()->intended(route('admin.dashboard'));
+            return redirect()->intended(route('admin.dashboard'));
+        } catch (\Exception $e) {
+            // Log the error for debugging
+            Log::error('Admin login session error: ' . $e->getMessage());
+            
+            // Clear any partial authentication
+            Auth::logout();
+            $request->session()->invalidate();
+            
+            return back()->withErrors([
+                'email' => 'Login failed due to a server error. Please try again.',
+            ])->onlyInput('email');
+        }
     }
 
     /**
