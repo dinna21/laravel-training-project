@@ -18,8 +18,24 @@ php artisan migrate
 
 ### 2. Create Admin User
 
-If admin user doesn't exist, create it:
+**Easiest method - Use the artisan command:**
+```bash
+php artisan admin:create-user
+```
 
+This will prompt you for:
+- Email (default: admin@gmail.com)
+- Name (default: Admin User)
+- Password (default: 1234 if left empty)
+
+**Or specify directly:**
+```bash
+php artisan admin:create-user admin@gmail.com "Admin User"
+```
+
+**Alternative methods:**
+
+Using tinker:
 ```bash
 php artisan tinker
 ```
