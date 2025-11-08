@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 use App\Models\Blog;
@@ -25,35 +27,72 @@ class AdminController extends Controller
     /**
      * Handle admin login
      */
-public function login(Request $request): RedirectResponse
-{
-    $request->validate([
-        'email' => 'required|email',
-        'password' => 'required',
-    ]);
+    public function login(Request $request): RedirectResponse
+    {
+        // Validate input
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
-    // Find user by email
-    $user = User::where('email', $request->email)->first();
-
-    // Check if user exists, password matches, and user is admin
-    if (
-        $user &&
-        Hash::check($request->password, $user->password) &&
-        $user->is_admin
-    ) {
-        // Use Laravel Auth instead of session
-        Auth::login($user);
+        // Rate limiting
+        $key = 'admin-login:' . $request->ip();
         
+        if (RateLimiter::tooManyAttempts($key, 5)) {
+            $seconds = RateLimiter::availableIn($key);
+            
+            throw ValidationException::withMessages([
+                'email' => "Too many login attempts. Please try again in {$seconds} seconds.",
+            ]);
+        }
+
+        // Find user by email
+        $user = User::where('email', $request->email)->first();
+
+        // Check if user exists
+        if (!$user) {
+            RateLimiter::hit($key, 60);
+            
+            return back()->withErrors([
+                'email' => 'No account found with this email address.',
+            ])->onlyInput('email');
+        }
+
+        // Check password
+        if (!Hash::check($request->password, $user->password)) {
+            RateLimiter::hit($key, 60);
+            
+            return back()->withErrors([
+                'email' => 'Invalid credentials. Please check your password.',
+            ])->onlyInput('email');
+        }
+
+        // Check if user is admin
+        if (!$user->is_admin) {
+            RateLimiter::hit($key, 60);
+            
+            return back()->withErrors([
+                'email' => 'You do not have admin privileges.',
+            ])->onlyInput('email');
+        }
+
+        // Clear rate limiter on successful login
+        RateLimiter::clear($key);
+
+        // Login the user using Laravel Auth
+        Auth::login($user, $request->boolean('remember'));
+        
+        // Regenerate session to prevent session fixation
         $request->session()->regenerate();
+        
+        // Set admin flag
         $request->session()->put('admin_authenticated', true);
+        
+        // Explicitly save session (important for hosted environments)
+        $request->session()->save();
 
-        return redirect()->route('admin.dashboard');
+        return redirect()->intended(route('admin.dashboard'));
     }
-
-    return back()->withErrors([
-        'email' => 'Invalid admin credentials or insufficient permissions.',
-    ]);
-}
 
     /**
      * Show admin dashboard
@@ -62,7 +101,7 @@ public function login(Request $request): RedirectResponse
     {
         $blogs = Blog::with('user')
             ->latest()
-            ->take(3) // show latest 3 blogs on dashboard
+            ->take(3)
             ->get()
             ->map(function ($blog) {
                 return [
@@ -86,7 +125,14 @@ public function login(Request $request): RedirectResponse
      */
     public function logout(Request $request): RedirectResponse
     {
-        $request->session()->forget(['admin_authenticated', 'admin_email', 'admin_user_id']);
-        return redirect()->route('admin.login');
+        // Logout using Laravel Auth
+        Auth::logout();
+        
+        // Clear session data
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        
+        return redirect()->route('admin.login')
+            ->with('status', 'You have been logged out successfully.');
     }
 }
