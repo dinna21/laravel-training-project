@@ -47,8 +47,26 @@ class AdminController extends Controller
             ]);
         }
 
-        // Find user by email
-        $user = User::where('email', $request->email)->first();
+        // Normalize email (trim whitespace and convert to lowercase for comparison)
+        $email = strtolower(trim($request->email));
+        
+        // Find user by email (case-insensitive search)
+        // Try exact match first, then case-insensitive
+        $user = User::where('email', $email)->first();
+        
+        // If not found, try case-insensitive search (for databases that are case-sensitive)
+        if (!$user) {
+            $user = User::whereRaw('LOWER(email) = ?', [strtolower($email)])->first();
+        }
+        
+        // Log for debugging (remove in production or use proper logging)
+        if (!$user) {
+            Log::warning('Admin login attempt failed - user not found', [
+                'email' => $email,
+                'ip' => $request->ip(),
+                'total_users' => User::count(),
+            ]);
+        }
 
         // Check if user exists
         if (!$user) {
