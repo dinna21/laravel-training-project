@@ -20,4 +20,15 @@ export default defineConfig({
     esbuild: {
         jsx: 'automatic',
     },
+    // Add build options to help debug
+    build: {
+        sourcemap: true,
+        rollupOptions: {
+            onwarn(warning, warn) {
+                // Log warnings during build
+                console.warn(warning);
+                warn(warning);
+            }
+        }
+    }
 });
